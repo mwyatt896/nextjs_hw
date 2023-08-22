@@ -3,11 +3,12 @@ import useMousePosition from './utils/useMousePosition';
 import styles from './page.module.scss';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { PuzzleWalletProvider, PuzzleWeb3Modal, useConnect } from '@puzzlehq/sdk';
+import { PuzzleWalletProvider, PuzzleWeb3Modal, useConnect, useAccount } from '@puzzlehq/sdk';
 
 export default function Home() {
   
   const { connect, data, error, loading } = useConnect();
+  const { account } = useAccount();
   const [isHovered, setIsHovered] = useState(false);
   const { x, y } = useMousePosition();
   const size = isHovered ? 400 : 40;
@@ -28,18 +29,18 @@ export default function Home() {
           Shadow Wizard Money Gang <span> BITCH </span>
           <div className='absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2'>
             <button
-              onClick={() => connect()}
+              onClick={async () => {await connect();}}
               disabled={loading}
               className={styles.orangehomecwbutton}
             >
-              CONNECT WALLET
+              {account?.address ?? 'R u puzzled'}
             </button>
-            {data && <p>you did it!</p>}
-            {/* TODO -- add new page transition here or error out if they don't have Puzzle Wallet */}
-            {/* First -- load account balance -- check if they already have SWMG
+            {/* {data && <p>you did it!</p>}
+            TODO -- add new page transition here or error out if they don't have Puzzle Wallet
+            First -- load account balance -- check if they already have SWMG
             If no, prompt them to buy SWMG
-            If yes, take them to next step -- the quiz */}
-            {error && <p>error connecting: {error}</p>}
+            If yes, take them to next step -- the quiz
+            {error && <p>error connecting: {error}</p>} */}
           </div>
 
         </p>
