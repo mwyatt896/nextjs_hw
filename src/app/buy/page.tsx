@@ -1,14 +1,15 @@
+// `app/page.tsx` is the UI for the `/` URL
 'use client';
-import useMousePosition from './utils/useMousePosition';
-import { shortenAddress } from './utils/utils';
-import styles from './page.module.scss';
+import useMousePosition from '../utils/useMousePosition';
+import { shortenAddress } from '../utils/utils';
+import styles from '../page.module.scss';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { PuzzleWalletProvider, PuzzleWeb3Modal, useConnect, useAccount } from '@puzzlehq/sdk';
 import { useRouter } from 'next/navigation';
 
-export default function Home() {
-  
+export default function Page() {
+
   const router = useRouter();
   const { connect, data, error, loading } = useConnect();
   const { account } = useAccount();
@@ -16,7 +17,7 @@ export default function Home() {
   const { x, y } = useMousePosition();
   const size = isHovered ? 400 : 40;
 
-  return (
+    return (
     <PuzzleWalletProvider>
     <main className={styles.main}>
 
@@ -30,20 +31,6 @@ export default function Home() {
           
         
           Shadow Wizard Money Gang <span> BITCH </span>
-            <button
-              onClick={async () => {await connect();}}
-              disabled={loading}
-              className={styles.orangehomecwbutton}
-            >
-              {/* {account ? shortenAddress(account.address, true, 10): 'R u puzzled'} */}
-              {account ? router.push('/buy'): 'R u puzzled'}
-            </button>
-            {/* {data && <p>you did it!</p>}
-            TODO -- add new page transition here or error out if they don't have Puzzle Wallet
-            First -- load account balance -- check if they already have SWMG
-            If no, prompt them to buy SWMG
-            If yes, take them to next step -- the quiz
-            {error && <p>error connecting: {error}</p>} */}
 
         </p>
       </motion.div>
@@ -62,7 +49,5 @@ export default function Home() {
     dAppIconURL='https://walletconnect.puzzle.online/assets/logo_white-b85ba17c.png'
     />
     </PuzzleWalletProvider>
-    
-  )
-  
-}
+    )
+  }
