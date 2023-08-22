@@ -34,6 +34,10 @@ export default function Home() {
               <span> CONNECT WALLET </span>
             </button>
             {data && <p>you did it!</p>}
+            {/* TODO -- add new page transition here */}
+            {/* First -- load account balance -- check if they already have SWMG
+            If no, prompt them to buy SWMG
+            If yes, take them to next step -- the quiz */}
             {error && <p>error connecting: {error}</p>}
           </p>
 
